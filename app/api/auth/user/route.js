@@ -1,6 +1,7 @@
 import connectDb from "../../../lib/db"
 import User from "../../../models/User"
 import { jwtVerify } from "jose"
+import { NextResponse } from "next/server"
 
 export async function GET(request) {
     try {

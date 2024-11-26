@@ -3,7 +3,7 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-
+import Link from "next/link";
 export default function Dashboard() {
   // const router = useRouter();
   // const [username, setUsername] = useState("loading...");
@@ -60,8 +60,15 @@ export default function Dashboard() {
     //   </button>
     // </div>
     <div className="h-full bg-blue-500">
-      <nav className="bg-fuchsia-800 h-20"><img src="logo.png" alt="" className="w-20 rounded px-3"/></nav>
-      
+      <nav className="bg-fuchsia-800 h-24 flex items-center justify-between">
+        <img src="logo.png" alt="" className="w-20 rounded px-3" />
+        <h2>Courses</h2>
+        <Link href="/profile"><img src="profile.jpg" alt="profile_image" className="w-20 rounded px-3" /></Link>
+      </nav>
+      <div>
+        <div></div>
+        <div></div>
+      </div>
     </div>
   );
 }

@@ -5,11 +5,13 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-const Register = () => {
+
+const Login = () => {
+
     const router = useRouter()
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [role,setRole]=useState("viewer")
+
 
     const registerData = async (e) => {
         e.preventDefault();
@@ -19,16 +21,14 @@ const Register = () => {
                 email,
                 password,
             });
-            if(response.status === 200 && (response.data.role === "admin")){
-                alert("user logged in successfully")
-                router.push('/dashboard')
-            }else if(response.status === 200){
-                alert("user logged in successfully")
+
+
+            if (response.status === 200) {
                 router.push('/')
             }
             console.log(response.data.role)
-            
-            
+
+
         } catch (error) {
             console.error("Error:", error);
         }
@@ -60,7 +60,7 @@ const Register = () => {
                         onChange={(e) => setEmail(e.target.value)}
                         className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2`}
                     />
-                    
+
                 </div>
 
                 {/* Password Field */}
@@ -77,9 +77,9 @@ const Register = () => {
                         placeholder="**********"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2" 
+                        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2"
                     />
-                   
+
                 </div>
 
                 <button
@@ -96,4 +96,4 @@ const Register = () => {
     );
 };
 
-export default Register;
+export default Login;

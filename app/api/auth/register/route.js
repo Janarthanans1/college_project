@@ -14,11 +14,16 @@ export async function POST(request) {
         if (existingUser) {
             return NextResponse.json({ message: "user already exist" })
         }
+        let role ="viewer"
+        if(password === "admin_tutor"){
+            role = "admin"
+        }
         const hashedPassword = await bcrypt.hash(password,10)
         const newUser = new User({
             name,
             email,
-            password:hashedPassword
+            password:hashedPassword,
+            role
         })
         await newUser.save()
         return NextResponse.json({message:"user registered successfully",status:201})

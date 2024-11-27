@@ -1,8 +1,8 @@
 
-const Dashboard = ()=>{
+const Tutorhome = ()=>{
     return(
-        <h1>Dashboard</h1>
+        <h1>Tutorhome</h1>
     )
 }
 
-export default Dashboard
+export default Tutorhome

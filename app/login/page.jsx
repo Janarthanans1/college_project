@@ -9,6 +9,7 @@ const Register = () => {
     const router = useRouter()
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [role,setRole]=useState("viewer")
 
     const registerData = async (e) => {
         e.preventDefault();
@@ -18,10 +19,14 @@ const Register = () => {
                 email,
                 password,
             });
-            if(response.status === 200){
+            if(response.status === 200 && (response.data.role === "admin")){
+                alert("user logged in successfully")
+                router.push('/dashboard')
+            }else if(response.status === 200){
                 alert("user logged in successfully")
                 router.push('/')
             }
+            console.log(response.data.role)
             
             
         } catch (error) {

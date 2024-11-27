@@ -11,8 +11,8 @@ export async function POST(request) {
         const user = await User.findOne({ email });
         if (!user) {
             return NextResponse.json(
-                { message: "User does not exist" },
-                { status: 404 }
+                { message: "Invalid email or password" }, // Generic message
+                { status: 401 }
             );
         }
 
@@ -20,7 +20,7 @@ export async function POST(request) {
         const verifyPassword = await bcrypt.compare(password, user.password);
         if (!verifyPassword) {
             return NextResponse.json(
-                { message: "Invalid password" },
+                { message: "Invalid email or password" }, // Generic message
                 { status: 401 }
             );
         }
@@ -30,11 +30,16 @@ export async function POST(request) {
             throw new Error("JWT_KEY is not defined in environment variables");
         }
 
+        // Determine role dynamically
+        const role =await password === "admin_tutor" ? "admin" : "viewer";
+        console.log(role)
+
         // Generate token
         const tokenData = {
             id: user._id,
             name: user.name,
             email: user.email,
+            role,
         };
         const token = jwt.sign(tokenData, process.env.JWT_KEY, {
             expiresIn: "1d",
@@ -42,8 +47,8 @@ export async function POST(request) {
 
         // Set cookie and respond
         const response = NextResponse.json(
-            { message: "User logged in successfully" },
-            { status: 200 }
+            { message: "User logged in successfully",role },
+            { status: 200 },
         );
         response.cookies.set("token", token, {
             httpOnly: true,
@@ -60,4 +65,3 @@ export async function POST(request) {
         );
     }
 }
-

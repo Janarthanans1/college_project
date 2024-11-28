@@ -6,8 +6,8 @@ import { NextResponse } from "next/server"
 export async function POST(request) {
     try {
         await connectDb()
-        const { name, email, password } = await request.json()
-        if (!name || !email || !password) {
+        const { name, email, password,img } = await request.json()
+        if (!name || !email || !password || !img) {
             return NextResponse.json({ message: "All fields are required" })
         }
         const existingUser = await User.findOne({ email })
@@ -23,7 +23,8 @@ export async function POST(request) {
             name,
             email,
             password:hashedPassword,
-            role
+            role,
+            img
         })
         await newUser.save()
         return NextResponse.json({message:"user registered successfully",status:201})
